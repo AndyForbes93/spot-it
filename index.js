@@ -20,6 +20,12 @@ SERVER.app.get('/*', SERVER.static);
 //mongo server
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/spotIt");
 
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+});
+
 Rating.create({
     userName:  "TEst",
     userImage: "Test",

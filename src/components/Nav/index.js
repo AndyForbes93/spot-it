@@ -16,7 +16,6 @@ export default class Nav extends Component {
               <span className="navbar-toggler-icon" />
             </button>
             <a className="navbar-brand" href="#">
-            <p className="d-inline-block align-top">{this.props.id}</p>
               <img className="d-inline-block align-top" src={this.props.imageURL} alt="" height="60" width="60" />
             </a>
 

@@ -31,7 +31,8 @@ export default class ArtistAlbums extends Component {
                 artist: "",
                 album: "",
                 albumImageURL:"",
-                reviewText: ""
+                reviewText: "",
+                score: ""
         }
         };
         this.openModal = this.openModal.bind(this);
@@ -65,7 +66,13 @@ export default class ArtistAlbums extends Component {
                                 imageURL={hasImage.url}
                                 onClick={event => this.getAlbumTracks(event, album.id, album.name)}
                                 text="Show Tracks"
-                                onClick2={event => this.reviewAlbum(event, this.state.current_user.user.id, this.state.current_user.user.images[0].url ,albums[0].artists[0].name ,  album.name , hasImage.url)}   
+                                onClick2={event => this.reviewAlbum(
+                                    event, 
+                                    this.state.current_user.user.id, 
+                                    this.state.current_user.user.images[0].url, 
+                                    albums[0].artists[0].name ,  
+                                    album.name , 
+                                    hasImage.url)}   
                                 text2="Review"                                                  
                             />
                         </div>
@@ -88,12 +95,13 @@ export default class ArtistAlbums extends Component {
             reviewText: e.target.value
         }});
       }
-
+      //TODO: When user clicks submit buttton enter all info into mongodb to display on the tracks page
     submitReview(){
+        console.log(this.state.data.reviewText);
 
         //console.log(this.state.data);
     }
-    //TODO: pass arguments that take username, image, album name, artists name, album url, review , and rating
+    //this sets state.data to current album being reviewed then opens modal
     reviewAlbum = (event , username , image , artist , album , albumImage) => {
         event.preventDefault();
         this.setState({album: album, artist:artist});
@@ -102,7 +110,7 @@ export default class ArtistAlbums extends Component {
             userName: username , userImageURL: image , artist: artist , album: album , albumImageURL:albumImage
          }})
     }
- 
+    //renders next component by passing props of the album to next component
     getAlbumTracks = (event, albumId, name) => {
         event.preventDefault();
         const { authToken } = this.props.location.state.auth;        
@@ -123,7 +131,7 @@ export default class ArtistAlbums extends Component {
         ))
         .catch(error => console.log(error));
     }
-
+    //modal functions
     openModal() {
         this.setState({modalIsOpen: true});
       }
@@ -155,7 +163,6 @@ export default class ArtistAlbums extends Component {
             <div>
                 <Nav 
                     imageURL={images[0].url} 
-                    display_name={display_name}
                     {...this.props} 
                 />
                 <div className="justify-content-center mt-5 row">
@@ -173,7 +180,7 @@ export default class ArtistAlbums extends Component {
                     style={customStyles}
                     contentLabel="reviewModal"
                     >
-                    <h2 className="display-4" ref={subtitle => this.subtitle = subtitle}>{this.state.album} | {this.state.artist}</h2>
+                    <h1 className="display-4"  ref={subtitle => this.subtitle = subtitle}>{this.state.album} | {this.state.artist}</h1>
                     <div className="center-block">
                     <form>
                     <textarea id="reviewText" rows="10" cols="75" name="reviewText" onChange={this.inputChange}>

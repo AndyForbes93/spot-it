@@ -103,7 +103,6 @@ export default class Dashboard extends Component {
         return <div>
             <Nav 
                 imageURL={images[0].url} 
-                display_name={display_name}
                 {...this.props}
             />
             <div className="row mt-5">
