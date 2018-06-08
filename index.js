@@ -4,37 +4,42 @@ const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
 const Rating = require("./models");
 
-const SERVER = {
-	app: express(),
-	port: process.env.PORT || 3000,
-	static: function(req, res) {
-		console.log('dirname',__dirname)
-		res.sendFile('/build/index.html');
-	}
-};
+var app = express();
+var router = express.Router();
 
-// Webserver
-SERVER.app.use(express.static(path.join(__dirname, 'build')));
-SERVER.app.get('/*', SERVER.static);
+var port = process.env.API_PORT || 3000;
 
-//mongo server
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/spotIt");
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  // we're connected!
-});
+router.get("/", function(req, res) {
+	res.json({ message: "API Initialized!"});
+   });
 
-Rating.create({
+app.use("/api", router);
+
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/spot-it";
+
+mongoose.connect(MONGODB_URI);
+
+//TODO: SET UP API TO POST RATINGS ENTERED TO MONGO THEN REDIRECT BACK TO DAHSBOARD
+//ON THE ABLUM COMPONENT THAT DISPLAYS THE SONGS SHOW ALL REVIEWS FOR THE ALBUM
+
+router.get("/rating" , function(req, res){
+	let ratingTest = {
     userName:  "TEst",
     userImage: "Test",
-    ratedItem:["Irepress" , "Sol Eye Sea I" , "IRL"],
+    ratedItem:["Irepress" , "Sol Eye Sea I" , "URL"],
     review: "Brebby Gud",
-    rating: 10
+	rating: 10
+	};
+	
+	db.Rating.create(ratingTest).then(function(dbRate){
+		res.json(dbRate);
+	});
 });
 
-// Start it up boys
-SERVER.app.listen(SERVER.port, () => {
-	console.log(`Port ${SERVER.port} is lit fam 🔥 🔥 🔥`);
-});
+app.listen(port, function() {
+	console.log(`api running on port ${port}`);
+   });
+

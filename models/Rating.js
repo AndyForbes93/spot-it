@@ -28,12 +28,5 @@ var ratingSchema = new Schema({
 
 var Rating = mongoose.model("Rating" , ratingSchema);
 
-Rating.create({
-    userName:  "TEst",
-    userImage: "Test",
-    ratedItem:["Irepress" , "Sol Eye Sea I" , "IRL"],
-    review: "Brebby Gud",
-    rating: 10
-});
 
 module.exports = Rating;
