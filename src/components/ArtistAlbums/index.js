@@ -95,9 +95,24 @@ export default class ArtistAlbums extends Component {
             reviewText: e.target.value
         }});
       }
+
+
+      
       //TODO: When user clicks submit buttton enter all info into mongodb to display on the tracks page
-    submitReview(){
-        console.log(this.state.data.reviewText);
+      onSubmit(){
+        axios.post("/api/" , {
+            userName: this.state.data.userName,
+            userImageURL: this.state.data.userImageURL,
+            artist:this.state.data.artist,
+            album:this.state.data.album,
+            albumImageURL:this.state.data.albumImageURL,
+            reviewText:  this.state.data.reviewText
+        }).then(function(response) {
+            console.log(response);
+        }).catch(function (error) {
+            console.log(error);
+        });
+       // console.log(this.state.data.reviewText);
 
         //console.log(this.state.data);
     }
@@ -182,7 +197,7 @@ export default class ArtistAlbums extends Component {
                     >
                     <h1 className="display-4"  ref={subtitle => this.subtitle = subtitle}>{this.state.album} | {this.state.artist}</h1>
                     <div className="center-block">
-                    <form>
+                    <form onSubmit={this.onSubmit}>
                     <textarea id="reviewText" rows="10" cols="75" name="reviewText" onChange={this.inputChange}>
                         Write your review here
                     </textarea>

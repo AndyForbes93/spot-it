@@ -37,7 +37,7 @@ export default class Dashboard extends Component {
         const { authToken } = this.props.location.state.auth;        
         let artists;
         //TODO: URL with access token for top artists page 
-        //console.log(`${spotifySearchURL}${this.state.query}&type=artist&access_token=${authToken}`);
+        console.log(`${spotifySearchURL}${this.state.query}&type=artist&access_token=${authToken}`);
         axios.get(`${spotifySearchURL}${this.state.query}&type=artist&access_token=${authToken}`)
         .then(response => {
             artists = response.data.artists;

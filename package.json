@@ -8,9 +8,9 @@
     "build": "NODE_ENV=\"production\" webpack --optimize-minimize",
     "dev:server": "node index.js",
     "dev:start": "webpack-dev-server --watch",
-    "start": "npm-run-all --parallel dev:start"
+    "start": "npm-run-all --parallel dev:start dev:server"
   },
-  "author": "",
+  "author": "Andy",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.17.1",

@@ -9,6 +9,7 @@ export default class AlbumTracks extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            reviews: []
 
         }
     }
@@ -46,6 +47,13 @@ export default class AlbumTracks extends Component {
         }else{
             return <p></p>
         }
+    }
+
+    //TODO:SHOW REVIEW FOR EACH ALBUM
+    showReview(){
+        axios.get("/api").then( function(res) {
+        console.log(res);
+        })
     }
 
     
