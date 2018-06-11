@@ -14,7 +14,6 @@ export default class UserProfile extends Component {
             error: ''
         };
     }
-    //TODO: USE USERDATA TO SET UP PAGE BETTER AND DISPLAY MORE INFO
 
     componentDidMount = () => {
         console.log(`${spotifyPlaylistURL}${this.state.auth.authToken}`);
