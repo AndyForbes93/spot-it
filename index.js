@@ -18,6 +18,17 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/spot-it";
 
 mongoose.connect(MONGODB_URI);
 
+
+// Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === "production") {
+    app.use('/', express.static("app/build"));
+    app.use(express.static(path.join(__dirname, 'app/build')));
+}
+app.get('*', (req, res) => {
+     res.sendFile(path.join(__dirname + '/app/build/index.html'));
+});
+
+
 router.get("/", function(req, res) {
 	res.json({ message: "API Initialized!"});
    });
@@ -39,6 +50,7 @@ app.post("/api/reviews" , (req, res) => {
     });
     doc.save();
 });
+
 
 
 
