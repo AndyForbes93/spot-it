@@ -42,16 +42,16 @@ export default class Top extends Component {
     }
 
     renderTopArtists = () => {
-        const { top_artists } = this.state;
-        let topArtists = [];
-        top_artists.map((item , index) => {
-        topArtists.push(
-            <div className="col-md-3">
-                <p>item.</p>
-            </div>
-        )
-    })
-    return topArtists
+    //     const { top_artists } = this.state;
+    //     let topArtists = [];
+    //     top_artists.map((item , index) => {
+    //     topArtists.push(
+    //         <div className="col-md-3">
+    //             <p>item.</p>
+    //         </div>
+    //     )
+    // })
+    // return topArtists
     }
 
     render() {

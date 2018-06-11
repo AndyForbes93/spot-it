@@ -27,12 +27,12 @@ export default class ArtistAlbums extends Component {
             album: "",
             artist: "",
             review: {
-                userName: "",
-                userImageURL: "",
+                userName: "blackwatera",
+                userImageURL: "https://profile-images.scdn.co/images/userprofile/default/663de4fa437b27e9eb0fa2cb2df22e62d3fa1921",
                 artist: "",
                 album: "",
                 albumImageURL:"",
-                reviewText: "",
+                reviewText: "The newest album from prog metal group BTBAM may have a short run time, but delievers on the bands previous sound of exapnsive and choatic metal. Coming in at just under 35 minutes the album is epic, but a short runtime leave the listener wanting more. Excited to see where this group decides to take their next album Automata II ",
                 score: ""
         }
         };
@@ -103,17 +103,17 @@ export default class ArtistAlbums extends Component {
         this.closeModal();
       // console.log(ArtistAlbums.state.review);
        let review = this.state.review;
-       request
-       .post('/api/reviews')
-       .send(review)
-       .set('Accept', 'application/json')
-       .end((err, res) => {
-         if (err || !res.ok) {
-           console.log('Oh no! err');
-         } else {
-           console.log('Success');
-         }
-       });
+    //    request
+    //    .post('/api/reviews')
+    //    .send(review)
+    //    .set('Accept', 'application/json')
+    //    .end((err, res) => {
+    //      if (err || !res.ok) {
+    //        console.log('Oh no! err');
+    //      } else {
+    //        console.log('Success');
+    //      }
+    //    });
     }
     //this sets state.data to current album being reviewed then opens modal
     reviewAlbum = (event , username , image , artist , album , albumImage) => {

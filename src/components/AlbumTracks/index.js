@@ -2,24 +2,26 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import ReactPlayer from 'react-player'; 
 import Nav from '../Nav';
-import { Card } from "../common";
+import { Card , ReviewCard } from "../common";
 
 export default class AlbumTracks extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            review: {}
 
         }
     }
 
     componentDidMount() {
-        console.log(this.props.location.state.review.review);
+       // console.log(this.props.location.state.review.review);
+       console.log(this.state.review);
         this.showReview();
     }
     componentWillMount(){
         let review = this.props.location.state.review.review;
-        console.log(review);
+        this.setState({review: review});
     }
 
     showTracks = (tracks) => {
@@ -59,15 +61,15 @@ export default class AlbumTracks extends Component {
 
     //TODO:SHOW REVIEW FOR EACH ALBUM
     showReview(){
-    axios.get('/api')
-    .then(res => {
+   // axios.get('/api')
+    // .then(res => {
 
-     console.log(res);
+    //  console.log(res);
 
-      this.setState({ 
-        reviews: res.data,
-       });
-    })
+    //   this.setState({ 
+    //     reviews: res.data,
+    //    });
+    // })
     }
 
     
@@ -90,6 +92,10 @@ export default class AlbumTracks extends Component {
                 <div className="row">
                     {this.showTracks(tracks)}
                 </div>
+                <ReviewCard 
+                userName={this.state.review.userName}
+                userImage={this.state.review.userImageURL}
+                text={this.state.review.reviewText} />
             </div>
         )
     }
