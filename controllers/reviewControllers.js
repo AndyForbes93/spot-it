@@ -12,7 +12,6 @@ module.exports = {
     },
     create: function(req, res) {
         const rating = {
-          _id: req.body._id,
           userName: req.body.userName,
           userImage: req.body.userImageURL,
           ratedItem: req.body.ratedItem,

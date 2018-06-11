@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
+import request from 'superagent';
 import Nav from '../Nav';
 import { Card2 } from '../common';
 import { spotifyAlbumURL } from '../../constants';
@@ -25,7 +26,7 @@ export default class ArtistAlbums extends Component {
             modalIsOpen: false,
             album: "",
             artist: "",
-            data: {
+            review: {
                 userName: "",
                 userImageURL: "",
                 artist: "",
@@ -86,42 +87,40 @@ export default class ArtistAlbums extends Component {
     }
 
     inputChange = (e) => {
-        this.setState({data:{
-            userName: this.state.data.userName,
-            userImageURL: this.state.data.userImageURL,
-            artist:this.state.data.artist,
-            album:this.state.data.album,
-            albumImageURL:this.state.data.albumImageURL,
+        this.setState({review:{
+            userName: this.state.review.userName,
+            userImageURL: this.state.review.userImageURL,
+            artist:this.state.review.artist,
+            album:this.state.review.album,
+            albumImageURL:this.state.review.albumImageURL,
             reviewText: e.target.value
         }});
       }
-
-
-      
+   
       //TODO: When user clicks submit buttton enter all info into mongodb to display on the tracks page
       onSubmit(){
-        axios.post("/api/" , {
-            userName: this.state.data.userName,
-            userImageURL: this.state.data.userImageURL,
-            artist:this.state.data.artist,
-            album:this.state.data.album,
-            albumImageURL:this.state.data.albumImageURL,
-            reviewText:  this.state.data.reviewText
-        }).then(function(response) {
-            console.log(response);
-        }).catch(function (error) {
-            console.log(error);
-        });
-       // console.log(this.state.data.reviewText);
-
-        //console.log(this.state.data);
+       // console.log(this);
+        this.closeModal();
+      // console.log(ArtistAlbums.state.review);
+       let review = this.state.review;
+       request
+       .post('/api/reviews')
+       .send(review)
+       .set('Accept', 'application/json')
+       .end((err, res) => {
+         if (err || !res.ok) {
+           console.log('Oh no! err');
+         } else {
+           console.log('Success');
+         }
+       });
     }
     //this sets state.data to current album being reviewed then opens modal
     reviewAlbum = (event , username , image , artist , album , albumImage) => {
         event.preventDefault();
         this.setState({album: album, artist:artist});
         this.openModal();
-        this.setState({data:{
+        this.setState({review:{
             userName: username , userImageURL: image , artist: artist , album: album , albumImageURL:albumImage
          }})
     }
@@ -141,7 +140,8 @@ export default class ArtistAlbums extends Component {
             { 
                 data: { tracks },
                 current_user: { user: this.state.current_user.user },
-                auth: { authToken }
+                auth: { authToken },
+                review: {review: this.state.review}
             }
         ))
         .catch(error => console.log(error));
@@ -197,14 +197,14 @@ export default class ArtistAlbums extends Component {
                     >
                     <h1 className="display-4"  ref={subtitle => this.subtitle = subtitle}>{this.state.album} | {this.state.artist}</h1>
                     <div className="center-block">
-                    <form onSubmit={this.onSubmit}>
+                    <form>
                     <textarea id="reviewText" rows="10" cols="75" name="reviewText" onChange={this.inputChange}>
                         Write your review here
                     </textarea>
                     </form>
                     </div>
                     <button onClick={this.closeModal} className="btn btn-danger">close</button>
-                    <button type="submit" className="btn btn-success" onClick={this.submitReview}>Submit</button>
+                    <button className="btn btn-success" onClick={this.onSubmit.bind(this)}>Submit</button>
                     </Modal>
                 
             </div>
