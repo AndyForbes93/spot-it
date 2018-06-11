@@ -2,6 +2,10 @@
 
 spot-it is an app that uses react, node, and the spotify web api to connect to spotify and make calls to the api to get user playlist data and search spotify for artists, albums, and tracks. It also allows  user to submit reviews of their favorite albums that display with the tracks of the album.
 
+#Reviewing Albums
+
+After logging in and searching for an Artist you can review their albums. Simply click the review button and pour your heart out. Hit submit then click show tracks to see the reviews for that album
+
 [Spot-it](https://spot-it-app.herokuapp.com/)
 
 ## Built With
