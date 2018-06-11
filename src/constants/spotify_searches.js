@@ -1,7 +1,7 @@
 let build = true;
 
 const scopes = "user-read-private+user-read-email+playlist-read-private+user-top-read+user-read-recently-played";
-const redirectURI = build ? "https://spot-it-app.herokuapp.com/ " : "http://localhost:8080/";
+const redirectURI = build ? "https://spot-it-app.herokuapp.com/callback" : "http://localhost:8080/";
 
 export const clientID = "b0fb5138f23b47dca7b805456e7f2716";
 export const clientSecret = "5fee16a1cb1145b18b3288322e1a7d15";
