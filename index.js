@@ -9,7 +9,7 @@ const Rating = require("./models/index");
 var app = express();
 var router = express.Router();
 
-var port = process.env.API_PORT || 3000;
+var port = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
