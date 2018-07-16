@@ -1,4 +1,4 @@
-let build = true;
+let build = false;
 
 const scopes = "user-read-private+user-read-email+playlist-read-private+user-top-read+user-read-recently-played";
 const redirectURI = build ? "https://spot-it-app.herokuapp.com/" : "http://localhost:8080/";

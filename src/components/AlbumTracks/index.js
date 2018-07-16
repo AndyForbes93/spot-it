@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import axios from 'axios';
+import API from "../../utils/API";
 import ReactPlayer from 'react-player'; 
 import Nav from '../Nav';
 import { Card , ReviewCard } from "../common";
@@ -61,15 +61,8 @@ export default class AlbumTracks extends Component {
 
     //TODO:SHOW REVIEW FOR EACH ALBUM
     showReview(){
-   // axios.get('/api')
-    // .then(res => {
-
-    //  console.log(res);
-
-    //   this.setState({ 
-    //     reviews: res.data,
-    //    });
-    // })
+        API.getReviews().then(res =>
+        this.setState({review: res.data})).catch(err => console.log(err));
     }
 
     

@@ -28,31 +28,7 @@ app.get('*', (req, res) => {
      res.sendFile(path.join(__dirname + './build/index.html'));
 });
 
-
-router.get("/", function(req, res) {
-	res.json({ message: "API Initialized!"});
-   });
-
 app.use(reviewRoute);
-
-
-
-app.get("/api/reviews" , (req, res ) => {
-    console.log(res);
-});
-
-app.post("/api/reviews" , (req, res) => {
-    var rating = new Rating({
-        userName: req.body.userName,
-        userImage:  req.body.userImage,
-        ratedItem:  req.body.ratedItem,
-        review: req.body.review
-    });
-    doc.save();
-});
-
-
-
 
 //start her up
 app.listen(port, function() {
